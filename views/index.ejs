@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Language" content="ru" />
+
+  <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+
+  <!-- Нормализация стилей-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" crossorigin="anonymous" />
+
+  <!-- Собственные стили-->
+  <link rel="stylesheet" href="/css/header.css">
+
+  <!-- Подключаем веб-шрифты -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700&amp;subset=cyrillic" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <!--Код плеера подключаем-->
+  <script src="/playerjs.js" type="text/javascript"></script>
+</head>
+<body>
+  <% include blocks/header.ejs %>
+  <%data.forEach(function(i){%>
+    <div class="video_blocks">
+      <ul class="video_ul">
+        <li class="video_li">
+          <a class="video_wrapper" href="http://127.0.0.1:3000/movie/<%=i.id%>">
+            <img src="/img/540x318/<%=i.id%>/1.jpg" alt="">
+            <p class="video_description">
+              описание к видео № <%=i.id%>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--<div id="player-<%=i.id%>" style="width: 400px" data-video="<%=i.link%>"></div>-->
+  <%});%>
+
+
+  
+  
+  
+    
+      
+
+  
+  
+
+
+
+
+</body>
+</html>
+<script>
+  /*
+    $('[data-video]').each(function(index, element){
+      var videoLink = $(element).attr('data-video');
+      var videoId = $(element).attr('id');
+      //console.log(v)
+      var player = new Playerjs({id:videoId, file:videoLink});  
+    });
+    */
+    
+    
+    /*
+    function calBack(res){
+      for (let index = 1; index < a.length; index++) {
+        const element = array[index];
+        
+      }
+    }
+    
+*/   
+ </script>
+<script>
+  
+  $(document).ready(function(){
+      //Скрыть PopUpSignin при загрузке страницы    
+      PopUpHideSignin();
+  });
+  $(document).ready(function(){
+      //Скрыть PopUpSignup при загрузке страницы    
+      PopUpHideSignup();
+  });
+  //Функция отображения PopUpSignin
+  function PopUpShowSignin(){
+      $("#popupsignin").show();
+  };
+  //Функция отображения PopUpSignup
+  function PopUpShowSignup(){
+      $("#popupsignup").show();
+  }
+  //Функция скрытия PopUpSignin
+  function PopUpHideSignin(){
+      $("#popupsignin").hide();
+  };
+    //Функция скрытия PopUpSignup
+    function PopUpHideSignup(){
+      $("#popupsignup").hide();
+  };
+</script>
+//<!--
+<script>
+  let data = $('#erLogin').serialize();
+
+  $.ajax({
+    url: '/api/signin',
+    data: data,
+    success(res){
+      return res;
+    },
+    error(err){
+      return err;
+    }
+  });
+</script>
+-->
+<script>
+  $('#form_auth').submit(()=>{
+    let data = $('#form_auth').serialize();
+    
+    //console.log(username_signup)
+    // див ошибки вынести в переменную, 
+    //let error = $('#error');
+    // обунлять её перед отправкой
+
+    $.ajax({
+      url: '/api/signin',//куда отправить
+      data: data,//что отправитиьь
+      method: "get",
+      success(res) { //200
+        // location.reload()
+      },
+      error(res) { //400-500
+        // выводить в див ошибку
+        $('#error_signin').text(res.responseJSON.error);
+        //console.log(res.responseJSON.error);
+        // взять res.error и вывести его в div ошибки
+      }
+    });
+
+    return false;
+  });
+
+</script>
+<script>
+    $('#form_signup').submit(()=>{
+      let data = $('#form_signup').serialize();
+      let username_signup = $('form#form_signup').find('[name=username]').val();
+      console.log(username_signup);
+      
+      // див ошибки вынести в переменную, 
+      //let error = $('#error_signup');
+  
+      // обунлять её перед отправкой
+      //let error = 0;
+      $.ajax({
+        url: '/api/signup',//куда отправить
+        data: data,//что отправитиь
+        method: "post",
+        success(res) { //200
+           location.reload();
+           console.log('пользователь зареган');
+           
+        },
+        error(res, data) { //400-500
+          
+          // выводить в див ошибку
+          $('#error_signup').text(res.responseJSON.error);
+          
+          // взять res.error и вывести его в div ошибки
+        }
+      });
+  
+      return false;
+    });
+  </script>
+
+

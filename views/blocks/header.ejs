@@ -1,0 +1,110 @@
+<header class="header">
+  <div class="header_container"><!-- Правильно ли создавать в хэдере еще один контейнер в котором будут логотип меню и тд?-->
+    <a href="/"><img src="" class="logo" alt="видео"></a>
+    <nav class="header_container_main_menu">
+      <ul class="main_menu_ul">
+        <li class="main_menu_ul_li"><a href="/">Видео </a></li>
+        <li class="main_menu_ul_li"><a href="/foto" target="_self">Фото</a></li>
+        <li class="main_menu_ul_li"><a href="/news" target="_self">Новости</a></li>
+      </ul>
+    </nav>
+    <form class="search_form" action="/" method="">
+        <input type="text" placeholder="Поиск видео" name="" value="">
+        <button type="submit" name="" value=""></button>
+    </form>
+    <% if(req.isAuthenticated() == false){ %>
+    <nav class="header_container_auth_menu">
+      <ul class="auth_menu_ul">
+        <li class="auth_menu_ul_li"><a href="javascript:PopUpShowSignin()">Вход</a></li>
+        <li class="auth_menu_ul_li"><a href="javascript:PopUpShowSignup()">Регистрация</a></li>
+      </ul>
+    </nav>
+    <% }else{ %>
+    <div class="header_logout">
+        <a href="http://127.0.0.1:3000/logout" target="_self">Выход</a>
+        <span><%= req.user.username %></span>
+    </div>
+    <% } %>
+    <!-- Окно под авторизацию юзера-->
+    <div class="window__auth" id="popupsignin">
+       <div class="content__auth">
+         <h1>Вход</h1>
+        <form class="login_form" id="form_auth" action="/api/signin" method="post">
+          <table>
+            <tbody>
+              <tr>
+                <td></td>
+                <td><span id="error_signin"></span></td>
+              </tr>
+              <tr>
+                <td>
+                  Логин
+                </td>
+                <td><input type="text" class="input" name="username"></td>
+              </tr>
+              <tr>
+                <td>Пароль</td>
+                <td><input type="text" class="input" name="password"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="submit" class="input_submit" value="Вход"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <br>
+                  <a href="#" class="forgot_password">Забыли пароль?</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <a href="javascript:PopUpHideSignin()"><i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+       </div>
+    </div>
+    <!-- Окно под регистрацию юзера-->
+    <div class="window__auth" id="popupsignup">
+        <div class="content__auth">
+          <h1>Регистрация</h1>
+         <form class="login_form" id="form_signup" action="/api/signup" method="post">
+           <table>
+             <tbody>
+               <tr>
+                 <td></td>
+                 <td><div id="error_signup"></div></td>
+               </tr>
+               <tr>
+                 <td>Логин</td>
+                 <td><input type="text" class="input" name="username"></td>
+               </tr>
+               <tr>
+                 <td>Пароль</td>
+                 <td><input type="text" class="input" name="password"></td>
+               </tr>
+               <tr>
+                  <td>Email</td>
+                  <td><input type="text" class="input" name="email"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><input type="submit" class="input_submit" value="Регистрация"></td>
+                </tr>
+               <tr>
+                 <td></td>
+                 <td></td>
+               </tr>
+             </tbody>
+           </table>
+         </form>
+         <a href="javascript:PopUpHideSignup()"><i class="fa fa-times" aria-hidden="true"></i>
+         </a>
+        </div>
+     </div>
+  </div>
+</header>
